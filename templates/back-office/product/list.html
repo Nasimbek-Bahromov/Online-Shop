@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'createProduct' %}">create</a>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>category</th>
+            <th>name</th>
+            <th>action</th>
+        </tr>
+        {% for product in queryset %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{product.category.name}}</td>
+            <td>{{product.name}}</td>
+            <td><a href="{% url 'detailProduct' product.id %}">detail</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

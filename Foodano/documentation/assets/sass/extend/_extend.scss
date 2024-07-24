@@ -1,0 +1,40 @@
+// Bg Color Extend 
+.bg-primary {
+  background-color: $primary-color;
+}
+
+.bg-secondary {
+  background-color: $secondary-color;
+}
+
+.bg-white {
+  background-color: $white-color;
+}
+
+
+// Font Color Extend
+.bColor {
+  color: $bColor;
+}
+
+.titleColor {
+  color: $titleColor;
+}
+
+// Font Extend
+.bodyfont {
+  font-family: $bodyFont;
+}
+
+.titleFont {
+  font-family: $titleFont;
+}
+
+.iconFont {
+  font-family: $iconFont;
+}
+
+
+.transition {
+  @include transition(all ease 0.4s);
+}

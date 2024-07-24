@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="name">
+        <input type="number" name="quantity">
+        <input type="number" name="price">
+        <textarea name="description">
+
+        </textarea>
+        <select name="category_id" id="">
+            {% for category in categorys %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="file" multiple name="images">
+        <button type="submit">saqlash</button>
+    </form>
+</body>
+</html>

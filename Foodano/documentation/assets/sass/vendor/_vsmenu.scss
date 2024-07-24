@@ -1,0 +1,173 @@
+.vs-menu-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.60);
+  z-index: 999999;
+  width: 0;
+  height: 100%;
+  @include transition(all ease 0.8s);
+
+
+
+  .vs-menu-area {
+    width: 100%;
+    max-width: 250px;
+    background-color: #fff;
+    height: 100%;
+    position: relative;
+    left: -1000px;
+    opacity: 0;
+    visibility: hidden;
+    @include transition(all ease 1s);
+
+
+    
+
+    // Mobile Menu Logo
+    .mobile-logo {
+      max-width: 140px;
+      padding-bottom: 30px;
+      padding-top: 45px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+
+    // Menu Close Button
+    .vs-menu-toggle {
+      background-color: transparent;
+      border: none;
+      font-size: 22px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0;
+      line-height: 1;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      font-size: 24px;
+      color: $primary-color;
+      z-index: 1;
+    }
+
+
+
+
+    // Mobile Menu
+    .vs-mobile-menu {
+      overflow-y: scroll;
+      max-height: 350px;
+
+      ul {
+        display: block;
+        padding-top: 60px;
+        li {
+          border-bottom: 1px solid #eee;
+
+          &:first-child {
+            border-top: 1px solid #eee;
+          }
+
+          a {
+            display: block;
+            position: relative;
+            padding: 7px 10px;
+            line-height: 1;
+            font-size: 14px;
+            text-transform: capitalize;
+          }
+
+          ul {
+            li {
+              &:last-child {
+                border-bottom: none;
+              }
+
+              a {
+                padding-left: 15px;
+              }
+
+              ul {
+                li {
+                  a {
+                    padding-left: 20px;
+                  }
+
+                  ul {
+                    li {
+                      a {
+                        padding-left: 25px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .vs-item-has-children {
+          >a {
+            &:after {
+              content: '\f0d7';
+              font-family: $iconFont;
+              font-weight: 700;
+              float: right;
+              padding-right: 10px;
+            }
+          }
+
+          &.vs-active {
+            >a {
+              color: $primary-color;
+
+              &:after {
+                content: '\f0d8';
+              }
+            }
+          }
+
+        }
+
+
+      }
+    }
+
+
+  }
+
+
+
+
+  &.vs-body-visible {
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    @include transition(all ease 0.8s);
+
+    .vs-menu-area {
+      left: 0;
+      opacity: 1;
+      visibility: visible;
+      @include transition(all ease 1s);
+    }
+
+  }
+
+}
+
+
+// Menu Toggle Button
+.menuToggleBtn {
+  padding: 0;
+  border: none;
+  color: $primary-color;
+  font-size: 36px;
+  line-height: 50px;
+  height: 50px;
+  background-color: transparent;
+  margin-right: 15px;
+}

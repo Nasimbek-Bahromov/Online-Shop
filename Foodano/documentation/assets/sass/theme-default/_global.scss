@@ -1,0 +1,170 @@
+// Link Button
+.link-btn {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $primary-color;
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '\f178';
+    font-family: $iconFont;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: left ease 0.4s, opacity ease 0.4s;
+  }
+
+  &:hover {
+    &:after {
+      opacity: 1;
+      visibility: visible;
+      left: -20px;
+    }
+  }
+
+
+}
+
+
+
+// Section Title
+.section-title {
+  padding: 0;
+  position: relative;
+  border-bottom: 3px solid;
+  margin-bottom: 40px;
+
+  .title {
+    text-transform: capitalize;
+    margin-bottom: 10px;
+  }
+}
+
+
+ol,ul {
+  padding-left: 25px;
+
+  li {
+    list-style: circle;
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+
+
+
+
+// Scroll To Top
+.scrollToTop {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  background-color: #444444;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  line-height: 47px;
+  border-radius: 50%;
+  right: 20px;
+  bottom: 20px;
+  opacity: 0;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+
+
+}
+
+
+
+.section-padding {
+  padding-bottom: 300px;
+}
+
+
+.img-box {
+  margin-bottom: 30px;
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+  
+  img {
+    width: 100%;
+  }
+}
+
+
+.code-block {
+  background-color: #fff;
+  box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+
+.inner-section {
+  margin-bottom: 100px;
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+
+
+@include desktop {
+  .section-padding {
+    padding-bottom: 200px;
+  }
+}
+
+
+
+@include phone {
+  .section-padding {
+    padding-bottom: 100px;
+  }
+
+
+  .section-title .title {
+    font-size: 26px;
+  }
+
+
+  .inner-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .code-block {
+    padding: 20px;
+    font-size: 14px;
+  }
+}
+
+
+
+
+

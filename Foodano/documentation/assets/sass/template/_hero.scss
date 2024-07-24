@@ -1,0 +1,117 @@
+.hero-area {
+  min-height: 800px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  position: relative;
+  margin-bottom: 250px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .main-title {
+    color: #fff;
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+  }
+
+  .meta {
+    display: block;
+    color: #fff;
+    text-transform: capitalize;
+  }
+
+  .def-btn {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 1px solid #fff;
+
+    &:hover {
+      border-color: #fff;
+      background-color: transparent;
+      color: #fff;
+    }
+  }
+
+  .text {
+    color: #fff;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 32px;
+
+    a {
+      text-decoration: underline;
+
+      &:hover {
+        color: $primary-color2;
+      }
+    }
+    
+  }
+
+
+
+
+
+
+}
+
+
+
+
+
+@include desktop {
+  .hero-area {
+    min-height: 600px;
+    margin-bottom: 150px;
+
+    .main-title {
+      font-size: 38px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+
+  }
+}
+
+
+
+@include phone {
+  .hero-area {
+    min-height: auto;
+    padding: 80px 0;
+    margin-bottom: 80px;
+
+    .main-title {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

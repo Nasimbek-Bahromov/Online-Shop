@@ -1,0 +1,171 @@
+body {
+	font-family: $bodyFont;
+	font-size: $bfSize;
+	font-weight: $fontWeight;
+	color: $bColor;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	position: relative;
+	overflow-y: scroll;
+}
+
+iframe {
+	border: none;
+}
+
+button:focus,
+a:focus,
+a:active,
+input,
+input:hover,
+input:focus,
+input:active,
+textarea,
+textarea:hover,
+textarea:focus,
+textarea:active {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+img:not([draggable]),
+embed,
+object,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	text-decoration: none;
+	outline: 0;
+	color: $bColor;
+	line-height: $blineHeight;
+	@extend .transition;
+}
+
+a:active,
+a:focus,
+a:hover,
+a:visited {
+	text-decoration: none;
+	outline: 0;
+}
+
+a:active,
+a:focus,
+a:hover {
+	color: $primary-color;
+}
+
+button {
+	@extend .transition;
+}
+
+img {
+	border: none;
+	max-width: 100%;
+}
+
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+p a,
+span a {
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $bodyFont;
+	line-height: $blineHeight;
+	color: $titleColor;
+	font-weight: 500;
+	margin-bottom: 25px;
+	text-transform: capitalize;
+	letter-spacing: $letterSpace;
+}
+
+h1,
+h2 {
+	line-height: 48px;
+	font-weight: 600;
+	font-family: $titleFont;
+}
+
+
+h1 {
+	font-size: 42px;
+}
+
+h2 {
+	font-size: 36px;
+}
+
+h3 {
+	font-size: 30px;
+}
+
+h4 {
+	font-size: 22px;
+}
+
+h5 {
+	font-size: 20px;
+}
+
+h6 {
+	font-size: 16px;
+}
+
+p {
+	margin-bottom: 30px;
+	line-height: 28px;
+	letter-spacing: $letterSpace;
+}
+
+
+
+@include xl-desktop {
+
+	body {
+		letter-spacing: 0.10px;
+	}
+
+}
+
+
+@include tablet {
+	body {
+		letter-spacing: 0;
+	}
+}
+
+
+@include phone {
+	h3 {
+		font-size: 24px;
+		margin-bottom: 15px;
+	}
+}

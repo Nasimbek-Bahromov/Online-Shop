@@ -1,0 +1,26 @@
+/*------------------- Grid -------------------*/
+@media only screen and (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+}
+
+.row.gutters-40 {
+    margin-left: -20px;
+    margin-right: -20px;
+
+    >[class^="col-"] {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    @media only screen and (max-width: 575px) {
+        margin-left: 0;
+        margin-right: 0;
+
+        >[class^="col-"] {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
