@@ -7,24 +7,13 @@
     <!-- Include Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Optional: Include custom CSS if needed -->
-    <style>
-        .container {
-            max-width: 600px;
-            margin-top: 50px;
-        }
-        .card {
-            border-radius: 12px;
-        }
-        .card-body {
-            font-size: 1.5em;
-        }
-    </style>
 </head>
 <body class="bg-light">
     <div class="container">
         <div class="card bg-white shadow-sm">
             <div class="card-body text-center">
-                <h1 class="card-title">{{ queryset.name }}</h1>
+                <p class="card-title">{{ queryset.name }}</p>
+                <p class="card-title">{{ queryset.title }}</p>
             </div>
         </div>
     </div>

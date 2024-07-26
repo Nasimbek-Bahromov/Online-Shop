@@ -26,28 +26,26 @@ def detailCategory(request, id):
 
 
 def createCategory(request):
-    models.Category.objects.create(
-        name=request.POST['name']
-    )
+    if request.method == 'POST':
+        models.Category.objects.create(
+            name=request.POST['name'],
+            title=request.POST['title'],
+        )
     return redirect('listCategory')
 
 
 def updateCategory(request, id):
-  # Fetch the category object
-  vegi = models.Category.objects.get(id=id)
-  print(f' vegi: {vegi}')
+    vegi = models.Category.objects.get(id=id)
 
-  context = {
-      'vegi': vegi
-  }
+    context = {
+        'vegi': vegi
+    }
 
-  if request.method == 'POST':
-    vegi.name = request.POST['name']
-    print(f' Updated data.name: {vegi.name}')
-
-    vegi.save()
-
-  return render(request, 'back-office/category/update.html', context)
+    if request.method == 'POST':
+        vegi.name = request.POST['name']
+        vegi.save()
+        return redirect('listCategory')
+    return render(request, 'back-office/category/update.html', context)
 
 
 

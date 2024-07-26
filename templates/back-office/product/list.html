@@ -14,7 +14,9 @@
             <th>#</th>
             <th>category</th>
             <th>name</th>
-            <th>action</th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         {% for product in queryset %}
         <tr>
@@ -22,6 +24,8 @@
             <td>{{product.category.name}}</td>
             <td>{{product.name}}</td>
             <td><a href="{% url 'detailProduct' product.id %}">detail</a></td>
+            <td><a href="{% url 'updateProduct' product.id %}">update</a></td>
+            <td><a href="{% url 'deleteProduct' product.id %}">delete</a></td>
         </tr>
         {% endfor %}
     </table>

@@ -46,9 +46,27 @@ def createProduct(request):
                 img = image,
                 product = product
             )
+        return redirect('listProduct')
     return render(request, 'back-office/product/create.html', context)
 
 
 def deleteProduct(request, id):
     models.Product.objects.get(id=id).delete()
     return redirect('listProduct')
+
+def updateProduct(request, id):
+    data = models.Product.objects.get(id=id)
+
+    context = {
+        'data': data
+    }
+
+    if request.method == 'POST':
+        data.name = request.POST['name']
+        data.quantity = request.POST['quantity']
+        data.price = request.POST['price']
+        data.category.id = request.POST['category_id']
+        data.description = request.POST['description']
+        data.save()
+        return redirect('listProduct')
+    return render(request, 'back-office/product/update.html', context)

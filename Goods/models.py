@@ -17,7 +17,7 @@ class Banner(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=255)
     title = models.TextField()
-    img = models.ImageField()
+    img = models.ImageField(upload_to='category_img')
 
     def __str__(self):
         return self.name
@@ -33,7 +33,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class ProductImg(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="{{data.name}}" name="name">
+        <input type="number" placeholder="{{data.quantity}}" name="quantity">
+        <input type="number" placeholder="{{data.price}}" name="price">
+        <input type="text" placeholder="{{data.category}}" name="category_id">
+        <input type="text" placeholder="{{data.description}}" name="description">
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
