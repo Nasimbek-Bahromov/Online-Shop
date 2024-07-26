@@ -17,9 +17,12 @@ def listProduct(request):
 
 def detailProduct(request, id):
     queryset = models.Product.objects.get(id=id)
+    print('queryset',queryset )
+    print('id', id)
+    querysetImg = models.ProductImg.objects.filter(product_id = id)
     context = {}
-    print(models.ProductImg.objects.filter(product=queryset))
     context['queryset'] = queryset
+    context['querysetImg'] = querysetImg
     context['images'] = models.ProductImg.objects.filter(product=queryset)
     return render(request, 'back-office/product/detail.html',context)
 
@@ -28,17 +31,6 @@ def createProduct(request):
     context = {}
     context['categorys'] = models.Category.objects.all()
     if request.method == 'POST':
-        # way 1
-        # category_id = request.POST['category_id']
-        # category = models.Category.objects.get(id=category_id)
-        # product = models.Product.objects.create(
-        #     name = request.POST['name'],
-        #     quantity = request.POST['quantity'],
-        #     price = request.POST['price'],
-        #     category = category, 
-        #     description = request.POST['description']
-        # )
-        # way 2
         product = models.Product.objects.create(
             name = request.POST['name'],
             quantity = request.POST['quantity'],

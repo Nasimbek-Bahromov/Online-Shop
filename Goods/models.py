@@ -18,15 +18,10 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
     title = models.TextField()
     img = models.ImageField()
-    generate_code = models.CharField(max_length=255, blank=True, unique=True)
 
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.generate_code = "".join(sample(string.ascii_letters, 20))
-        super(Category, self).save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -84,3 +79,21 @@ class Order(models.Model):
 
     def __str__(self):
         return self.full_name
+
+class ProductEnter(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null = True)
+    quantity = models.IntegerField()
+    old_quantity = models.IntegerField(blank = True)
+    date = models.DateTimeField()
+    description = models.TextField()
+
+    def str(self):
+        return self.product.name
+    
+    def save(self, *args, **kwargs):
+        if not self.id :
+            self.old_quantity = self.product.quantity
+            self.product.quantity += self.quantity
+        else:
+            self.product.quantity -= ProductEnter.objects.get(generate_code=self.generate_code).quantity
+            self.product.quantity += self.quantity

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/productCreate.css' %}">
 </head>
 <body>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="name">
-        <input type="number" name="quantity">
-        <input type="number" name="price">
-        <textarea name="description">
-
-        </textarea>
+        <input type="text" placeholder="Name" name="name">
+        <input type="number" placeholder="quantity" name="quantity">
+        <input type="number" placeholder="price" name="price">
+        <textarea name="description">placeholder</textarea>
         <select name="category_id" id="">
             {% for category in categorys %}
             <option value="{{category.id}}">{{category.name}}</option>

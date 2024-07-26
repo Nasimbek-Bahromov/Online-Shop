@@ -1,19 +1,29 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="{% static 'assets/css/product-detail.css' %}">
 </head>
 <body>
-    {{queryset.name}}
-    {{queryset.category.name}}
-    {{queryset.quantity}}
-    {{queryset.description}}
+    <div class="container">
+        <div class="details">
+            <h2>{{ queryset.name }}</h2>
+            <p><strong>Category:</strong> {{ queryset.category.name }}</p>
+            <p><strong>Quantity:</strong> {{ queryset.quantity }}</p>
+            <p><strong>Description:</strong> {{ queryset.description }}</p>
+            
+        </div>
 
-    <hr>
-    {% for image in images %}
-    <img src="{{image.img.url}}" alt="" width="200px">
-    {% endfor %}
+        <hr>
+
+        <div class="images">
+            {% for image in querysetImg %}
+            <img src="{{ image.img.url }}" alt="Product Image" width="200px">
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
