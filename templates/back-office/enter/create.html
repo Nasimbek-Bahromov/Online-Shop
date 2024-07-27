@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/productCreate.css' %}">
+</head>
+<body>
+    <form action="{% url 'createEnter' %}" method="POST">
+        {% csrf_token %}
+        <select name="product_id" id="">
+            {% for product in products %}
+            <option value="{{product.id}}">{{product.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="number" placeholder="quantity" name="number" >
+        <input type="date" placeholder="date" name="date">
+        <input type="text" placeholder="description" name="description">
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Form</h3>
+                        <form action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name">Product</label>
+                                <input type="text" class="form-control" id="name" placeholder="{{data.product.name}}" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" class="form-control" id="quantity" placeholder="{{data.quantity}}" name="quantity">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" placeholder="{{data.description}}" name="description">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
