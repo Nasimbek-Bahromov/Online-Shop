@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.main, name='index'),
     path('authentication/', include('Goods.authentication.urls')),
     path('back-office/', include('Goods.back-office.urls')),
-    path('user', views.user, name='user'), 
+    path('user/', include('Goods.user.urls')), 
 ]

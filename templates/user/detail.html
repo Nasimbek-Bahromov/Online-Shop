@@ -1,0 +1,317 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Foodano - Organic Food Store HTML Template - Shopping Cart</title>
+    <meta name="author" content="Vecuro">
+    <meta name="description" content="Foodano - Organic Food Store HTML Template">
+    <meta name="keywords" content="Foodano - Organic Food Store HTML Template" />
+    <meta name="robots" content="INDEX,FOLLOW">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--==============================
+	   Google Web Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@200;300;400;500;600;700&family=Amatic+SC:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Favicons - Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/img/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/img/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/img/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/img/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/img/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/img/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/img/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/img/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/img/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	    All CSS File
+	============================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/bootstrap.rtl.min.css"> -->
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/app.min.css"> -->
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <!-- Flaticon -->
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.min.css' %}">
+    <!-- Layerslider -->
+    <link rel="stylesheet" href="{% static 'assets/css/layerslider.min.css' %}">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{% static 'assets/css/jquery.datetimepicker.min.css' %}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}">
+    <!-- Slick Slider -->
+    <link rel="stylesheet" href="{% static 'assets/css/slick.min.css' %}">
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+</head>
+
+<body class=" ">
+
+
+    <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+
+
+    <!--********************************
+   		Code Start From Here 
+	******************************** -->
+
+    <!--==============================
+     Preloader
+  ==============================-->
+    <div class="preloader  ">
+        <button class="vs-btn preloaderCls">Cancel Preloader </button>
+        <div class="preloader-inner">
+            <div class="loader-logo">
+                <img src="{% static 'assets/img/logo.svg' %}" alt="Foodano">
+            </div>
+            <div class="loader-wrap pt-4">
+                <span class="loader"></span>
+            </div>
+        </div>
+    </div>
+ 
+    <!--==============================
+        Header Area
+    ==============================-->
+    <header class="header-wrapper header-layout3 header3-margin ">
+        <div class="container py-30">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <div class="header-logo">
+                        <a href="index.html"><img src="{% static 'assets/img/logo.svg' %}" alt="Foodano"></a>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <button type="button" class="vs-menu-toggle d-inline-block d-lg-none"><i class="far fa-bars"></i></button>
+                    <div class="head-top-links text-body2 d-none d-lg-block">
+                        <a href="wishlist.html" class="icon-btn has-badge bg3 me-3"><i class="fal fa-heart"></i><span class="badge">0</span></a>
+                        <a href="#" class="icon-btn has-badge bg2 me-4 sideMenuToggler"><i class="fal fa-shopping-cart"></i><span class="badge">0</span></a>
+                        <span class="icon-btn bg4"><i class="fal fa-user"></i></span>
+                        <ul>
+                            <li><a href="login-register.html">Login</a></li>
+                            <li><a href="login-register.html">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--==============================
+    Breadcumb
+============================== -->
+    <div class="breadcumb-wrapper breadcumb-layout1 bg-fluid pt-200 pb-200" data-bg-src="{% static 'assets/img/breadcumb/breadcumb-img-1.jpg' %}">
+        <div class="container">
+            <div class="breadcumb-content text-center">
+                <h1 class="breadcumb-title">{{cart.author.username}}'s Cart</h1>
+            </div>
+        </div>
+    </div>
+    <!--==============================
+    Cart Area
+    ==============================-->
+    <div class="vs-cart-wrapper  space-top space-md-bottom">
+        <div class="container">
+            <form action="#" class="woocommerce-cart-form">
+                <table class="cart_table">
+                    <thead>
+                        <tr>
+                            <th class="cart-col-image">Image</th>
+                            <th class="cart-col-productname">Product Name</th>
+                            <th class="cart-col-price">Price</th>
+                            <th class="cart-col-quantity">Quantity</th>
+                            <th class="cart-col-total">Total</th>
+                            <th class="cart-col-remove">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pro in cartpro %}
+                        <tr class="cart_item">
+                            <td data-title="Product">
+                                <a class="cart-productimage" href="shop-details.html"><img width="91" height="91" src="{% static 'assets/img/cart/cat-img-1.png' %}" alt="Image"></a>
+                            </td>
+                            <td data-title="Name">
+                                <a class="cart-productname" href="shop-details.html">{{pro.product.name}}</a>
+                            </td>
+                            <td data-title="Price">
+                                <span class="amount"><bdi><span>$</span>{{pro.product.price}}</bdi></span>
+                            </td>
+                            <td data-title="Quantity">
+                                <div class="quantity">
+                                    <button class="quantity-minus qut-btn"><i class="far fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="{{pro.quantity}}" min="1" max="99">
+                                    <button class="quantity-plus qut-btn"><i class="far fa-plus"></i></button>
+                                </div>
+                            </td>
+                            <td data-title="Total">
+                                <span class="amount"><bdi><span>$</span>{{pro.total_price}}</bdi></span>
+                                
+                            </td>
+                            <td data-title="Remove">
+                                <a href="shop-details.html" class="remove"><i class="fal fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <td colspan="6" class="actions">
+                                <div class="vs-cart-coupon">
+                                    <input type="text" class="form-control" placeholder="Coupon Code...">
+                                    <button type="submit" class="vs-btn rounded-1 shadow-none">Apply Coupon</button>
+                                </div>
+                                <button type="submit" class="vs-btn style2 rounded-1 shadow-none">Update cart</button>
+                                <a href="shop-details.html" class="vs-btn rounded-1 shadow-none">Continue Shopping</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div class="row justify-content-end">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <h2 class="h4 summary-title">Cart Totals</h2>
+                    <table class="cart_totals">
+                        <tbody>
+                            <tr>
+                                <td>Cart Subtotal</td>
+                                <td data-title="Cart Subtotal">
+                                    <span class="amount"><bdi><span>$</span>47</bdi></span>
+                                </td>
+                            </tr>
+                            <tr class="shipping">
+                                <th>Shipping and Handling</th>
+                                <td data-title="Shipping and Handling">
+                                    <ul class="woocommerce-shipping-methods list-unstyled">
+                                        <li>
+                                            <input type="radio" id="free_shipping" name="shipping_method" class="shipping_method">
+                                            <label for="free_shipping">Free shipping</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="flat_rate" name="shipping_method" class="shipping_method" checked="checked">
+                                            <label for="flat_rate">Flat rate</label>
+                                        </li>
+                                    </ul>
+                                    <p class="woocommerce-shipping-destination">
+                                        Shipping options will be updated during checkout.
+                                    </p>
+                                    <form action="#" method="post">
+                                        <a href="shop-details.html" class="shipping-calculator-button">Change address</a>
+                                        <div class="shipping-calculator-form">
+                                            <p class="form-row">
+                                                <select class="form-select">
+                                                    <option value="AR">Argentina</option>
+                                                    <option value="AM">Armenia</option>
+                                                    <option value="BD" selected="selected">Bangladesh</option>
+                                                </select>
+                                            </p>
+                                            <p>
+                                                <select class="form-select">
+                                                    <option value="">Select an option…</option>
+                                                    <option value="BD-05">Bagerhat</option>
+                                                    <option value="BD-01">Bandarban</option>
+                                                    <option value="BD-02">Barguna</option>
+                                                    <option value="BD-06">Barishal</option>
+                                                </select>
+                                            </p>
+                                            <p class="form-row">
+                                                <input type="text" class="form-control" placeholder="Town / City">
+                                            </p>
+                                            <p class="form-row">
+                                                <input type="text" class="form-control" placeholder="Postcode / ZIP">
+                                            </p>
+                                            <p>
+                                                <button class="vs-btn shadow-none rounded-1">Update</button>
+                                            </p>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="order-total">
+                                <td>Order Total</td>
+                                <td data-title="Total">
+                                    <strong><span class="amount"><bdi><span>$</span>47</bdi></span></strong>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="wc-proceed-to-checkout mb-30">
+                        <a href="shop-details.html" class="vs-btn rounded-1 shadow-none">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--********************************
+			Code End  Here 
+	******************************** -->
+
+
+    <!-- Scroll Top Top Button -->
+    <a href="#" class="scrollToTop"><i class="far fa-angle-up"></i></a>
+
+
+
+
+    <!--==============================
+        All Js File
+    ============================== -->
+    <!-- Jquery -->
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <!-- Slick Slider -->
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/app.min.js"></script> -->
+    <!-- Layerslider -->
+    <script src="{% static 'assets/js/layerslider.utils.js' %}"></script>
+    <script src="{% static 'assets/js/layerslider.transitions.js' %}"></script>
+    <script src="{% static 'assets/js/layerslider.kreaturamedia.jquery.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Date Picker -->
+    <script src="{% static 'assets/js/jquery.datetimepicker.min.js' %}"></script>
+    <!-- Filter -->
+    <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+    <!-- Magnific Popup -->
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Jquery UI -->
+    <script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+    <!-- WOW JS (Animation JS) -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <!-- Custom Carousel -->
+    <script src="{% static 'assets/js/vscustom-carousel.min.js' %}"></script>
+    <!-- Mobile Menu -->
+    <script src="{% static 'assets/js/vsmenu.min.js' %}"></script>
+    <!-- Form Js -->
+    <script src="{% static 'assets/js/ajax-mail.js' %}"></script>
+    <!-- Main Js File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

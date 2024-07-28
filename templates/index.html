@@ -34,7 +34,7 @@
                                         <li><a href="shop.html">Shop</a></li>
                                         <li><a href="shop-list.html">Shop List</a></li>
                                         <li><a href="shop-details.html">Shop Details</a></li>
-                                        <li><a href="cart.html">Shopping Cart</a></li>
+                                        <li><a href="{% url 'mycart'  %}">MYCart</a></li>
                                         <li><a href="checkout.html">Check Out</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="{% url 'login' %}">Login & Register</a></li>
@@ -848,97 +848,33 @@
                 <h2 class="sec-title3">Our Most Popular Boxes</h2>
             </div>
             <div class="row vs-carousel" data-slide-show="3" data-lg-slide-show="3" data-sm-slide-show="1">
+                {% for product in products%}
                 <div class="col-xl-4">
                     <div class="package-style1">
-                        <div class="package-img"><img src="{% static 'assets/img/package/p-1-1.jpg' %}" alt="Package"></div>
+                        <div class="package-img"><img src="{{product.img.url }}" alt="Package"></div>
                         <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
-                            <div class="number">12</div>
-                            <div class="label">Organic Varieties</div>
+                            <div class="number">{{product.product.name}}</div>
                         </div>
-                        <div class="package-price">$16.75<div class="text">/ Lowest</div>
-                        </div>
-                        <h3 class="package-title">Seasonal organic veg box - medium</h3>
+                        <div class="package-price">${{product.product.price}}</div>
+                        <h3 class="package-title">{{product.product.description}}</h3>
                         <div class="package-list">
                             <ul>
-                                <li><i class="far fa-check"></i>The UK Red potatoes</li>
-                                <li><i class="far fa-check"></i>The UK Carrots</li>
-                                <li><i class="far fa-check"></i>The UK Parsnips</li>
-                                <li><i class="far fa-check"></i>Spain Broccoli</li>
-                                <li><i class="far fa-check"></i>Spain Italy Courgettes</li>
+                                <li><i class="far fa-check"></i>{{product.product.quantity}} pcs left</li>
                             </ul>
                         </div>
-                        <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
+                        <form action="{% url 'addToCart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="number" placeholder="quantity" name="quantity">
+                            <button type="submit">Add To Cart</button>
+                        </form>
                     </div>
                 </div>
-                <div class="col-xl-4">
-                    <div class="package-style1">
-                        <div class="package-img"><img src="{% static 'assets/img/package/p-1-2.jpg' %}" alt="Package"></div>
-                        <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
-                            <div class="number">08</div>
-                            <div class="label">Organic Varieties</div>
-                        </div>
-                        <div class="package-price">$35.75<div class="text">/ Medium</div>
-                        </div>
-                        <h3 class="package-title">Familiar Favourites organic veg box</h3>
-                        <div class="package-list">
-                            <ul>
-                                <li><i class="far fa-check"></i>The UK Red potatoes</li>
-                                <li><i class="far fa-check"></i>The UK Carrots</li>
-                                <li><i class="far fa-check"></i>The UK Parsnips</li>
-                                <li><i class="far fa-check"></i>Spain Broccoli</li>
-                                <li><i class="far fa-check"></i>Spain Italy Courgettes</li>
-                            </ul>
-                        </div>
-                        <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-xl-4">
-                    <div class="package-style1">
-                        <div class="package-img"><img src="{% static 'assets/img/package/p-1-3.jpg' %}" alt="Package"></div>
-                        <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
-                            <div class="number">14</div>
-                            <div class="label">Organic Varieties</div>
-                        </div>
-                        <div class="package-price">$45.75<div class="text">/ Highest</div>
-                        </div>
-                        <h3 class="package-title">Zero packaging organic veg box medium top</h3>
-                        <div class="package-list">
-                            <ul>
-                                <li><i class="far fa-check"></i>The UK Red potatoes</li>
-                                <li><i class="far fa-check"></i>The UK Carrots</li>
-                                <li><i class="far fa-check"></i>The UK Parsnips</li>
-                                <li><i class="far fa-check"></i>Spain Broccoli</li>
-                                <li><i class="far fa-check"></i>Spain Italy Courgettes</li>
-                            </ul>
-                        </div>
-                        <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-xl-4">
-                    <div class="package-style1">
-                        <div class="package-img"><img src="{% static 'assets/img/package/p-1-4.jpg' %}" alt="Package"></div>
-                        <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
-                            <div class="number">19</div>
-                            <div class="label">Organic Varieties</div>
-                        </div>
-                        <div class="package-price">$99.75<div class="text">/ VIP</div>
-                        </div>
-                        <h3 class="package-title">Intermix and alphabets to get to uniqueness</h3>
-                        <div class="package-list">
-                            <ul>
-                                <li><i class="far fa-check"></i>The UK Red potatoes</li>
-                                <li><i class="far fa-check"></i>The UK Carrots</li>
-                                <li><i class="far fa-check"></i>The UK Parsnips</li>
-                                <li><i class="far fa-check"></i>Spain Broccoli</li>
-                                <li><i class="far fa-check"></i>Spain Italy Courgettes</li>
-                            </ul>
-                        </div>
-                        <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
+
+
     <section class="  space" data-bg-src="{% static 'assets/img/bg/newsletter-bg-1-2.jpg' %}">
         <div class="container">
             <div class="newsletter-style2" data-bg-src="{% static 'assets/img/shape/newsletter-bg-1-1.png' %}">
