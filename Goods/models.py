@@ -1,15 +1,11 @@
 from django.db import models, transaction
 from django.core.exceptions import ObjectDoesNotExist
-from django.db import models
 from django.contrib.auth.models import User
-from random import sample
-import string
 
 class Banner(models.Model):
     title = models.CharField(max_length=255)
     sub_title = models.CharField(max_length=255, blank=True, null=True)
     img = models.ImageField(upload_to='banners/')
-    img = models.ImageField()
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -25,19 +21,19 @@ class Category(models.Model):
         return self.name
 
 
-
 class Product(models.Model):
-    name:str = models.CharField(max_length=255)
-    quantity:int = models.PositiveIntegerField(default=1)
-    price:float = models.DecimalField(max_digits=8, decimal_places=2)
-    category:Category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    description:str = models.TextField()
+    name = models.CharField(max_length=255)
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    description = models.TextField()
 
     def __str__(self):
         return self.name
 
+
 class ProductImg(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     img = models.ImageField(upload_to='product-img')
 
     def __str__(self):
@@ -45,26 +41,27 @@ class ProductImg(models.Model):
 
 
 class Cart(models.Model):
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='carts')
     is_active = models.BooleanField(default=True)
     shopping_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return self.author.username
+        return self.author.username if self.author else "Anonymous"
 
 
 class CartProduct(models.Model):
+    productImg = models.ForeignKey(ProductImg, on_delete=models.SET_NULL, null=True, related_name='cart_products')
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_products')
     quantity = models.PositiveIntegerField(default=1)
-    total_price  = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return self.product.name
+        return self.product.product.name
 
 
 class Order(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True)
+    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, related_name='orders')
     full_name = models.CharField(max_length=255)
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=13)
@@ -83,9 +80,8 @@ class Order(models.Model):
         return self.full_name
 
 
-
 class ProductEnter(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='entries')
     quantity = models.IntegerField()
     old_quantity = models.IntegerField(blank=True, null=True)  # Allow null for new instances
     date = models.DateTimeField(auto_now_add=True)  # Automatically set on creation

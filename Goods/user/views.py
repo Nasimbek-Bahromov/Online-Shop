@@ -4,7 +4,7 @@ from Goods import models
 
 def myCart(request):
     cart = models.Cart.objects.get(author=request.user, is_active=True)
-    cartProduct = models.CartProduct.objects.all()
+    cartProduct = models.CartProduct.objects.filter(cart= cart)
     context = {}
     context['cart']=cart
     context['cartpro']=cartProduct
@@ -13,44 +13,47 @@ def myCart(request):
 
 def addProductToCart(request, id):
     product_id = id
-    quantity = request.POST['quantity']
+    quantity = int(request.POST['quantity'])  # Convert quantity to integer
     product = models.Product.objects.get(id=product_id)
     cart, _ = models.Cart.objects.get_or_create(author=request.user, is_active=True)
     try:
-        cart_product = models.CartProduct.objects.get(cart=cart, product=product)
-        cart_product.quantity+=quantity
+        cart_product = models.CartProduct.objects.get(cart=cart, product_id=product_id)
+        cart_product.quantity += quantity
         cart_product.save()
-    except:
+    except models.CartProduct.DoesNotExist:
         cart_product = models.CartProduct.objects.create(
             product=product, 
             cart=cart,
             quantity=quantity
         )
+    if quantity and product.price:
+        cart_product.total_price = quantity * float(product.price)
+        cart_product.save()
     return redirect('mycart')
 
 
-def substractProductFromCart(request):
-    code = request.GET['code']
-    quantity = request.GET['quantity']
-    product_cart = models.CartProduct.objects.get(generate_code=code)
-    product_cart.quantity -= quantity
+
+def substruct(request, id):
+    code = id
+    quantity = int(request.POST['quantity'])
+    product_cart = models.CartProduct.objects.get(id=code)
+    product_cart.quantity = quantity
     product_cart.save()
     if not product_cart.quantity:
         product_cart.delete()
-    return redirect('/')
+    return redirect('mycart')
 
 
-def deleteProductCart(request):
-    code = request.GET['code']
-    product_cart = models.CartProduct.objects.get(generate_code=code)
+
+def deleteProductCart(request, id):
+    product_cart = models.CartProduct.objects.get(id=id)
     product_cart.delete()
-    return redirect('/')
+    return redirect('mycart')
 
 
-def CreateOrder(request):
-    cart = models.Cart.objects.get(
-        generate_code = request.GET['generate_code']
-        )
+def CreateOrder(request, id):
+    print('boshi')
+    cart = models.Cart.objects.get(id=id)
     
     cart_products = models.CartProduct.objects.filter(cart=cart)
 
@@ -66,16 +69,16 @@ def CreateOrder(request):
                 product.product.quantity += product.quantity
                 product.product.save()
             raise ValueError('Qoldiqda kamchilik')
-
-    models.Order.objects.create(
-        cart=cart,
-        full_name = f"{request.user.first_name}, {request.user.last_name}",
-        email = request.user.email,
-        phone = request.GET['phone'],
-        address = request.GET['address'],
-        status = 1
-        )
-    cart.is_active = False
-    cart.save()
-    
-    return redirect('/')
+    if request.method == 'POST':
+        models.Order.objects.create(
+            cart_id=cart.id,
+            full_name = request.POST['full_name'],
+            email = request.POST['email'],
+            phone = request.POST['phone'],
+            address = request.POST['address'],
+            status = 1
+            )
+        cart.is_active = False
+        cart.save()
+        return render(request, 'user/order.html')
+    return redirect('mycart')
