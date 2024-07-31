@@ -100,7 +100,7 @@
                     <div class="col-auto d-none d-sm-block">
                         <div class="header-buttons">
                             <button type="button" class="searchBoxTggler"><i class="far fa-search"></i></button>
-                            <a href="wishlist.html"><i class="fal fa-heart"></i></a>
+                            <a href="{% url 'wishList' %}"><i class="fal fa-heart"></i></a>
                             <button class="sideMenuToggler has-badge" type="button"><i class="fal fa-shopping-cart"></i><span class="badge">0</span></button>
                             {% if request.user.is_authenticated%}
                             <a href="#">{{request.user.username}}</a>
@@ -125,7 +125,7 @@
 
             {% for banner in  banners %}
             <div class="ls-slide" data-ls="duration:12000; transition2d:5; kenburnsscale:1.2;">
-                <p style="top:405px; left:375px; font-weight:700; background-size:inherit; background-position:inherit; font-size:65px; color:#fcd55c; font-family:'Advent Pro', sans-serif;" class="ls-l ls-hide-tablet ls-hide-phone" data-ls="offsetxin:-200; durationin:1500; easingin:easeOutQuint;">Organic Plants and</p>
+                <p style="top:405px; left:375px; font-weight:700; background-size:inherit; background-position:inherit; font-size:65px; color:#fcd55c; font-family:'Advent Pro', sans-serif;" class="ls-l ls-hide-tablet ls-hide-phone" data-ls="offsetxin:-200; durationin:1500; easingin:easeOutQuint;">{{banner.title}} <br> {{banner.sub_title}}</p>
                 <div style="top:611px; left:375px; background-size:inherit; background-position:inherit;" class="ls-l ls-hide-tablet ls-hide-phone" data-ls="offsetyin:100; durationin:1500; delayin:800; easingin:easeOutQuint; offsetyout:200; durationout:1500; easingout:easeOutQuint;">
 
                     <a href="shop.html" class="vs-btn style5 ls-btn">Start Shopping<i class="far fa-angle-right"></i></a>
@@ -217,158 +217,99 @@
 
                 <div id="BestSeller">
                     <div class="row gx-2px justify-content-center">
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-1.png' %}" alt="Product Image" class="w-100"></a>
-                                    <span class="product-tag2">New</span><span class="product-tag3">Sale</span>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-1.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
+                        {% for product in page_obj %}
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                <div class="vs-product-box3 ">
+                                    <div class="product-img">
+                                        <a href="shop-details.html"><img src="{{ product.img.url }}" alt="Product Image" class="w-100"></a>
+                                        {% if product.is_new %}
+                                            <span class="product-tag2">New</span>
+                                        {% endif %}
+                                        {% if product.is_on_sale %}
+                                            <span class="product-tag3">Sale</span>
+                                        {% endif %}
                                     </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Organic Apple Juice</a></h4>
-                                    <span class="price"><strong>$18.00</strong><del>$47.00</del></span>
+                                    <div class="actions-btn">
+                                        <form action="{% url 'addToCart' product.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <a href="{{ product.img.url }}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
+                                            {% if not product.product in wishlist %}
+                                                <a href="{% url 'addOrDelete' product.id %}" class="icon-btn">
+                                                    <i class="far fa-heart"></i> 
+                                                </a>
+                                            {% else %}
+                                                <a href="{% url 'addOrDelete' product.id %}" class="icon-btn">
+                                                    <i class="fas fa-heart" style="color: #f75802;"></i>
+                                                </a>
+                                            {% endif %}
+                                        
+                                                <input type="number" class="form-control" placeholder="Quantity" name="quantity" hidden value="1">
+                                        
+                                            <button type="submit" class="vs-btn style4 cart-btn">
+                                                <i class="fal fa-cart-plus"></i>Add To Cart
+                                                
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
+                                        </div>
+                                        <h4 class="product-title"><a href="shop-details.html">{{ product.product.name }}</a></h4>
+                                        <span class="price"><strong>${{ product.product.price }}</strong>{% if product.product.original_price %}<del>${{ product.product.original_price }}</del>{% endif %}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-2.png' %}" alt="Product Image" class="w-100"></a>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-2.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Clark’s Nutrition</a></h4>
-                                    <span class="price"><strong>$45.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-3.png' %}" alt="Product Image" class="w-100"></a>
-                                    <span class="product-tag2">New</span><span class="product-tag3">Sale</span>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-3.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Organic Cravings</a></h4>
-                                    <span class="price"><strong>$78.00</strong><del>$66.00</del></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-4.png' %}" alt="Product Image" class="w-100"></a>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-4.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Organic Meats</a></h4>
-                                    <span class="price"><strong>$15.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-5.png' %}" alt="Product Image" class="w-100"></a>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-5.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Untouched Organic</a></h4>
-                                    <span class="price"><strong>$56.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-6.png' %}" alt="Product Image" class="w-100"></a>
-                                    <span class="product-tag3">Sale</span>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-6.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Balance Bearing</a></h4>
-                                    <span class="price"><strong>$41.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-7.png' %}" alt="Product Image" class="w-100"></a>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-7.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Organic Soulfood</a></h4>
-                                    <span class="price"><strong>$36.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="vs-product-box3 ">
-                                <div class="product-img">
-                                    <a href="shop-details.html"><img src="{% static 'assets/img/shop/product-3-8.png' %}" alt="Product Image" class="w-100"></a>
-                                    <span class="product-tag3">Sale</span>
-                                </div>
-                                <div class="actions-btn">
-                                    <a href="{% static 'assets/img/shop/product-3-8.png' %}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
-                                    <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a>
-                                    <a href="cart.html" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating-box">5.0<div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span></div>
-                                    </div>
-                                    <h4 class="product-title"><a href="shop-details.html">Organic Conditions</a></h4>
-                                    <span class="price"><strong>$49.00</strong></span>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">First</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">Previous</span>
+                                </li>
+                            {% endif %}
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">Next</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">Last</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 </div>
 
-                <div id="popular">
+                <!-- <div id="popular">
                     <div class="row gx-2px justify-content-center">
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="vs-product-box3 ">
@@ -828,7 +769,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="bottom-btn">
                 <a href="shop.html" class="vs-btn style3">All Product<i class="fas fa-angle-right"></i></a>
@@ -842,37 +783,40 @@
     <section class="position-relative space-top space-md-bottom" style="padding-top: 40px;">
         <div class="sec-bg4" data-bg-src="assets/img/shape/bg-00779.png"></div>
         <div class="container">
-            <div class="section-title text-center">
+            <div class="section-title text-center mb-5">
                 <div class="sec-icon"><img src="{% static 'assets/img/icons/sec-icon-2.png' %}" alt="icon"></div>
                 <span class="sub-title4">Box contents change weekly</span>
                 <h2 class="sec-title3">Our Most Popular Boxes</h2>
             </div>
             <div class="row vs-carousel" data-slide-show="3" data-lg-slide-show="3" data-sm-slide-show="1">
-                {% for product in products%}
-                <div class="col-xl-4">
-                    <div class="package-style1">
-                        <div class="package-img"><img src="{{product.img.url }}" alt="Package"></div>
-                        <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
-                            <div class="number">{{product.product.name}}</div>
-                        </div>
-                        <div class="package-price">${{product.product.price}}</div>
-                        <h3 class="package-title">{{product.product.description}}</h3>
-                        <div class="package-list">
-                            <ul>
-                                <li><i class="far fa-check"></i>{{product.product.quantity}} pcs left</li>
+                {% for product in products %}
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ product.img.url }}" class="card-img-top" alt="Package">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.product.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${{ product.product.price }}</h6>
+                            <p class="card-text">{{ product.product.description }}</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="far fa-check"></i> {{ product.product.quantity }} pcs left</li>
                             </ul>
                         </div>
-                        <form action="{% url 'addToCart' product.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="number" placeholder="quantity" name="quantity">
-                            <button type="submit">Add To Cart</button>
-                        </form>
+                        <div class="card-footer">
+                            <form action="{% url 'addToCart' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="Quantity" name="quantity">
+                                    <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </section>
+    
 
 
     <section class="  space" data-bg-src="{% static 'assets/img/bg/newsletter-bg-1-2.jpg' %}">
@@ -1001,11 +945,15 @@
                                 </div>
                                 <div class="footer-info">
                                     <i class="fas fa-phone-alt"></i>
-                                    <a href="tel:+387643932728">+387643932728</a>
+                                    <a href="tel:+387643932728">{{ info.phone_number }}</a>
                                 </div>
                                 <div class="footer-info">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    Harbour House, 60 Purewell, Christchurch, England
+                                    {{ info.address }}
+                                </div>
+                                <div class="footer-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="mailto:info@foodano.com">{{ info.email }} </a>
                                 </div>
                             </div>
                         </div>

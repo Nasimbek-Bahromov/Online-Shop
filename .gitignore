@@ -1,4 +1,4 @@
-.venv
+.env
 Foodano.zip
 __pycache__
 migrations

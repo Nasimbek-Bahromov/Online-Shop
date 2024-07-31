@@ -102,7 +102,21 @@ class ProductEnter(models.Model):
                     self.product.quantity += quantity_diff
                     self.old_quantity = previous_entry.quantity
                 except ObjectDoesNotExist:
-                    # Handle case where the entry doesn't exist
                     pass
             self.product.save()
             super().save(*args, **kwargs)
+
+
+class Info(models.Model):
+    phone_number = models.CharField(max_length=13)
+    address = models.CharField(max_length=255)
+    email = models.EmailField()
+
+
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username}, {self.product.name}"
+

@@ -3,47 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Include Bootstrap CSS -->
+    <title>Product Form</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 0.375rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .form-group label {
+            font-weight: 500;
+        }
+        .btn-block {
+            width: 100%;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-10">
-                <div class="card bg-white shadow-sm">
+                <div class="card bg-white">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Form</h3>
+                        <h3 class="card-title text-center mb-4">Product Form</h3>
                         <form action="#" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="{{data.name}}" name="name">
+                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input type="number" class="form-control" id="quantity" placeholder="{{data.quantity}}" name="quantity">
+                                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity">
                             </div>
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" class="form-control" id="price" placeholder="{{data.price}}" name="price">
+                                <input type="number" class="form-control" id="price" placeholder="Enter price" name="price">
                             </div>
                             <div class="form-group">
                                 <label for="category_id">Category</label>
-                                <input type="text" class="form-control" id="category_id" placeholder="{{data.category}}" name="category_id">
+                                <input type="text" class="form-control" id="category_id" placeholder="Enter category" name="category_id">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <input type="text" class="form-control" id="description" placeholder="{{data.description}}" name="description">
+                                <textarea class="form-control" id="description" placeholder="Enter description" name="description" rows="3"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Send</button>
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Include Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -7,6 +7,63 @@
     <title>Cart</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            margin-bottom: 2rem;
+        }
+        .jumbotron {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .jumbotron h1 {
+            font-size: 2.5rem;
+        }
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tbody tr {
+            transition: background-color 0.2s;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-primary:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.25rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+        footer {
+            background-color: #343a40;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -41,10 +98,10 @@
     </div>
 
     <!-- Cart Table -->
-    <div class="container mt-4">
+    <div class="container">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
-                <thead class="thead-light">
+                <thead>
                     <tr>
                         <th>Image</th>
                         <th>Product Name</th>
@@ -66,12 +123,12 @@
                             <form action="{% url 'substract' pro.id %}" method="POST" class="form-inline">
                                 {% csrf_token %}
                                 <input type="number" value="{{ pro.quantity }}" name="quantity" min="0" class="form-control mr-2">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
                             </form>
                         </td>
                         <td>${{ pro.total_price }}</td>
                         <td>
-                            <a href="{% url 'delete' pro.id %}" class="btn btn-danger">Remove</a>
+                            <a href="{% url 'delete' pro.id %}" class="btn btn-danger btn-sm">Remove</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -88,29 +145,22 @@
                 <form action="{% url 'createOrder' cart.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" name="full_name" placeholder="Full Name" class="form-control">
+                        <input type="text" name="full_name" placeholder="Full Name" class="form-control mb-3" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Email" class="form-control">
+                        <input type="email" name="email" placeholder="Email" class="form-control mb-3" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="phone" placeholder="Phone" class="form-control">
+                        <input type="text" name="phone" placeholder="Phone" class="form-control mb-3" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="address" placeholder="Address" class="form-control">
+                        <input type="text" name="address" placeholder="Address" class="form-control mb-3" required>
                     </div>
                     <button type="submit" class="btn btn-success btn-block">Place Order</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <div class="container">
-            <p class="mb-0">© 2024 Shop. All rights reserved.</p>
-        </div>
-    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
