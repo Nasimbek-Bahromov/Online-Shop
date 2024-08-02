@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Banners</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Banners</h1>
+        <a href="{% url 'banner-create' %}" class="btn btn-success">Create New Banner</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Sub Title</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for banner in banners %}
+                <tr>
+                    <td>{{ banner.title }}</td>
+                    <td>{{ banner.sub_title }}</td>
+                    <td>
+                        {% if banner.img %}
+                            <img src="{{ banner.img.url }}" alt="{{ banner.title }}" class="img-thumbnail" style="max-width: 100px;">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if banner.is_active %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'banner-detail' banner.pk %}" class="btn btn-info btn-sm">Detail</a>
+                        <a href="{% url 'banner-update' banner.pk %}" class="btn btn-primary btn-sm">Update</a>
+                        <a href="{% url 'banner-delete' banner.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

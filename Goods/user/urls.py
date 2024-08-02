@@ -8,6 +8,6 @@ urlpatterns = [
     path('delete/<int:id>/', views.deleteProductCart, name='delete'),
     path('order/<int:id>/', views.CreateOrder, name='createOrder'),
     path('wishlist/', views.wishList, name='wishList'),
-    path('addOrDelete/<int:id>/', views.addOrDeleteWishList, name='addOrDelete')
-
+    path('addOrDelete/<int:id>/', views.addOrDeleteWishList, name='addOrDelete'),
+    path('update/<int:id>/', views.updateCartProduct, name='updateCartProduct'),  
 ]

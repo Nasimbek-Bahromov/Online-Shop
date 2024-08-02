@@ -5,8 +5,12 @@ from django.contrib.auth.decorators import login_required
 
 
 def myCart(request):
-    cart = models.Cart.objects.get(author=request.user, is_active=True)
-    cartProduct = models.CartProduct.objects.filter(cart= cart)
+    try:
+        cart = models.Cart.objects.get(author=request.user, is_active=True)
+        cartProduct = models.CartProduct.objects.filter(cart= cart)
+    except:
+        cart = []
+        cartProduct = []
     context = {}
     context['cart']=cart
     context['cartpro']=cartProduct
@@ -15,23 +19,33 @@ def myCart(request):
 
 def addProductToCart(request, id):
     product_id = id
-    quantity = int(request.POST['quantity'])  # Convert quantity to integer
+    quantity = int(request.POST.get('quantity'))  # Convert quantity to integer
     product = models.Product.objects.get(id=product_id)
     cart, _ = models.Cart.objects.get_or_create(author=request.user, is_active=True)
     try:
         cart_product = models.CartProduct.objects.get(cart=cart, product_id=product_id)
         cart_product.quantity += quantity
+        cart_product.total_price = cart_product.quantity * product.price  # Update total price
         cart_product.save()
     except models.CartProduct.DoesNotExist:
         cart_product = models.CartProduct.objects.create(
             product=product, 
             cart=cart,
-            quantity=quantity
+            quantity=quantity,
+            total_price=quantity * product.price  # Set total price initially
         )
-    if quantity and product.price:
-        cart_product.total_price = quantity * float(product.price)
+    return redirect('mycart')
+
+def updateCartProduct(request, id):
+    cart_product = models.CartProduct.objects.get(id=id)
+    if request.method == 'POST':
+        quantity = int(request.POST['quantity'])
+        cart_product.quantity = quantity
+        cart_product.total_price = quantity * cart_product.product.price  # Update total price
         cart_product.save()
     return redirect('mycart')
+
+
 
 
 
@@ -89,7 +103,7 @@ def wishList(request):
     wish_list = models.WishList.objects.filter(user=request.user)
     context = {}
     context['wishlist']=wish_list
-    return render(request, 'user/wishList.html', context)  
+    return render(request, 'user/wishlist.html', context)  
 
 
 @login_required

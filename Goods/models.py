@@ -27,6 +27,21 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     description = models.TextField()
+    
+
+    @property
+    def is_like(self, request):
+        return WishList.objects.filter(product=self, user=request.user).exists()
+
+    
+    
+    @property
+    def get_image(self):
+        last_img = ProductImg.objects.all()
+        for img in last_img:
+            if img.product.id == self.id:
+                return img
+        return None
 
     def __str__(self):
         return self.name
@@ -50,14 +65,13 @@ class Cart(models.Model):
 
 
 class CartProduct(models.Model):
-    productImg = models.ForeignKey(ProductImg, on_delete=models.SET_NULL, null=True, related_name='cart_products')
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_products')
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return self.product.product.name
+        return self.product.name
 
 
 class Order(models.Model):
@@ -113,7 +127,7 @@ class Info(models.Model):
     email = models.EmailField()
 
 
-class WishList(models.Model):
+class  WishList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 

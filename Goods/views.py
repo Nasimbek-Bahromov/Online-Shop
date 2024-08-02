@@ -8,7 +8,8 @@ def main(request):
     last_img = models.ProductImg.objects.all()
     infos = models.Info.objects.last()
     products = models.Product.objects.all()
-    wishlist = models.WishList.objects.all()
+    wishlist = models.WishList.objects.filter(user=request.user)
+    wishlist_products = [item.product for item in wishlist]
 
     # Pagination
     paginator = Paginator(last_img, 4)  # 4 ta maxsulotlarni pagination qildim
@@ -21,10 +22,11 @@ def main(request):
         'products': last_img,
         'info': infos,
         'page_obj': page_obj,
-        'wishlist': wishlist,
+        'wishlist_products': wishlist_products
     }
 
     return render(request, 'index.html', context)
+
 
 
 

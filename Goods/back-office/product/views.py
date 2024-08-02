@@ -54,19 +54,33 @@ def deleteProduct(request, id):
     models.Product.objects.get(id=id).delete()
     return redirect('listProduct')
 
+
+
 def updateProduct(request, id):
     data = models.Product.objects.get(id=id)
 
     context = {
-        'data': data
+        'data': data,
+        'product_img': data.images.first()  # Product modelining birinchi rasmni olish
     }
 
     if request.method == 'POST':
         data.name = request.POST['name']
         data.quantity = request.POST['quantity']
         data.price = request.POST['price']
-        data.category.id = request.POST['category_id']
+        data.category_id = request.POST['category_id']
         data.description = request.POST['description']
+        
+        if 'img' in request.FILES:
+            # Eski rasmni yangilash yoki yangisini qo'shish
+            product_img = data.images.first()
+            if product_img:
+                product_img.img = request.FILES['img']
+                product_img.save()
+            else:
+                models.ProductImg.objects.create(product=data, img=request.FILES['img'])
+
         data.save()
         return redirect('listProduct')
+    
     return render(request, 'back-office/product/update.html', context)

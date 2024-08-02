@@ -31,27 +31,34 @@
                 <div class="card bg-white">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Product Form</h3>
-                        <form action="#" method="POST">
+                        <form action="#" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="{{ data.name }}">
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity">
+                                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity" value="{{ data.quantity }}">
                             </div>
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" class="form-control" id="price" placeholder="Enter price" name="price">
+                                <input type="number" class="form-control" id="price" placeholder="Enter price" name="price" value="{{ data.price }}">
                             </div>
                             <div class="form-group">
                                 <label for="category_id">Category</label>
-                                <input type="text" class="form-control" id="category_id" placeholder="Enter category" name="category_id">
+                                <input type="text" class="form-control" id="category_id" placeholder="Enter category" name="category_id" value="{{ data.category_id }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="description" placeholder="Enter description" name="description" rows="3"></textarea>
+                                <textarea class="form-control" id="description" placeholder="Enter description" name="description" rows="3">{{ data.description }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="img">Image</label>
+                                <input type="file" class="form-control-file" id="img" name="img">
+                                {% if product_img %}
+                                    <img src="{{ product_img.img.url }}" alt="Current Image" class="img-fluid mt-2" width="100">
+                                {% endif %}
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>

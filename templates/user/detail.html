@@ -7,15 +7,24 @@
     <title>Cart</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #e9f7f3; /* Light green background */
         }
         .navbar {
+            background-color: #28a745; /* Green background */
             margin-bottom: 2rem;
         }
+        .navbar .nav-link {
+            color: white;
+        }
+        .navbar .nav-link:hover {
+            color: #f8f9fa;
+        }
         .jumbotron {
-            background-color: #007bff;
+            background-color: #28a745; /* Green background */
             color: white;
             padding: 2rem 1rem;
             border-radius: 0.5rem;
@@ -23,24 +32,45 @@
         }
         .jumbotron h1 {
             font-size: 2.5rem;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
         }
         .table thead th {
-            background-color: #007bff;
+            background-color: #28a745; /* Green background */
             color: white;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
         }
         .table tbody tr {
             transition: background-color 0.2s;
         }
         .table tbody tr:hover {
-            background-color: #f1f1f1;
+            background-color: #d4edda; /* Light green hover */
         }
-        .btn-primary {
-            background-color: #dc3545;
+        .btn-update {
+            background-color: #dc3545; /* Red background */
             border-color: #dc3545;
+            color: white;
         }
-        .btn-primary:hover {
-            background-color: #c82333;
+        .btn-update:hover {
+            background-color: #c82333; /* Darker red */
             border-color: #bd2130;
+        }
+        .btn-plus {
+            background-color: #007bff; /* Blue background */
+            color: white;
+            border: none;
+        }
+        .btn-plus:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+        .btn-minus {
+            background-color: #dc3545; /* Red background */
+            color: white;
+            border: none;
+        }
+        .btn-minus:hover {
+            background-color: #c82333; /* Darker red */
         }
         .btn-danger {
             background-color: #dc3545;
@@ -55,19 +85,67 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .card-header {
-            background-color: #007bff;
+            background-color: #dc3545; /* Red background */
             color: white;
             font-size: 1.25rem;
             border-radius: 0.5rem 0.5rem 0 0;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
         }
-        footer {
-            background-color: #343a40;
+        .quantity-input {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-input button {
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            line-height: 20px;
+            text-align: center;
+            padding: 0;
+        }
+        .quantity-input button.btn-plus {
+            background-color: #007bff; /* Blue background */
+        }
+        .quantity-input button.btn-minus {
+            background-color: #dc3545; /* Red background */
+        }
+        .quantity-input input {
+            width: 50px;
+            text-align: center;
+            border-radius: 0.25rem;
+            border: 1px solid #28a745; /* Green border */
+            margin: 0 5px;
         }
     </style>
+    <script>
+        function increaseQuantity(button) {
+            var input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+            updateTotal(input);
+        }
+
+        function decreaseQuantity(button) {
+            var input = button.nextElementSibling;
+            var value = parseInt(input.value);
+            if (value > 0) {
+                input.value = value - 1;
+                updateTotal(input);
+            }
+        }
+
+        function updateTotal(input) {
+            var row = input.closest('tr');
+            var price = parseFloat(row.querySelector('.product-price').dataset.price);
+            var quantity = parseInt(input.value);
+            var total = price * quantity;
+            row.querySelector('.total-price').textContent = `$${total.toFixed(2)}`;
+        }
+    </script>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}">Shop</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,20 +193,24 @@
                     {% for pro in cartpro %}
                     <tr>
                         <td>
-                            <a href="#"><img width="91" height="91" src="{% static 'assets/img/cart/cat-img-1.png' %}" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img width="91" height="91" src="{{ pro.product.get_image.img.url }}" alt="Image" class="img-fluid"></a>
                         </td>
                         <td>{{ pro.product.name }}</td>
-                        <td>${{ pro.product.price }}</td>
+                        <td class="product-price" data-price="{{ pro.product.price }}">${{ pro.product.price }}</td>
                         <td>
-                            <form action="{% url 'substract' pro.id %}" method="POST" class="form-inline">
+                            <form action="{% url 'updateCartProduct' pro.id %}" method="POST" class="form-inline">
                                 {% csrf_token %}
-                                <input type="number" value="{{ pro.quantity }}" name="quantity" min="0" class="form-control mr-2">
-                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                <div class="quantity-input">
+                                    <button type="button" class="btn-minus" onclick="decreaseQuantity(this)">-</button>
+                                    <input type="number" value="{{ pro.quantity }}" name="quantity" min="0" class="form-control mx-2" onchange="updateTotal(this)">
+                                    <button type="button" class="btn-plus" onclick="increaseQuantity(this)">+</button>
+                                </div>
+                                <button type="submit" class="btn btn-update btn-sm ml-2">Update</button>
                             </form>
                         </td>
-                        <td>${{ pro.total_price }}</td>
+                        <td class="total-price">${{ pro.total_price }}</td>
                         <td>
-                            <a href="{% url 'delete' pro.id %}" class="btn btn-danger btn-sm">Remove</a>
+                            <a href="{% url 'delete' pro.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -136,6 +218,7 @@
             </table>
         </div>
 
+        {% if cart %}
         <!-- Order Form -->
         <div class="card mt-4">
             <div class="card-header">
@@ -161,6 +244,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
