@@ -8,7 +8,13 @@ def main(request):
     last_img = models.ProductImg.objects.all()
     infos = models.Info.objects.last()
     products = models.Product.objects.all()
-    wishlist = models.WishList.objects.filter(user=request.user)
+    if request.user.is_authenticated:
+        wishlist = models.WishList.objects.filter(user=request.user)
+        # Kod davom etadi
+    else:
+        wishlist = []
+    # Autentifikatsiyadan o'tmagan foydalanuvchi uchun xatti-harakat
+    
     wishlist_products = [item.product for item in wishlist]
 
     # Pagination
